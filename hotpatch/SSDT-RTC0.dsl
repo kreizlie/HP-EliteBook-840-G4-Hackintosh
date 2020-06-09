@@ -1,31 +1,20 @@
 // SSDT Fix RTC
 DefinitionBlock ("", "SSDT", 2, "ACDT", "_RTC0", 0)
 {
+    External (_SB.PCI0.LPCB.RTC, DeviceObj)
     External (_SB.PCI0.LPCB, DeviceObj)
-    External (STAS, FieldUnitObj)
     
-    Scope (\)
+    // Disable RTC
+    Scope (_SB.PCI0.LPCB.RTC)
     {
-        STAS = Zero
-        
-        // Device (RTC)
-        // {
-        //     Method (_STA, 0, NotSerialized)  // _STA: Status
-        //     {
-        //         If (LEqual (STAS, One))
-        //         {
-        //             Return (0x0F)
-        //         }
-        //         Else
-        //         {
-        //             Return (Zero) -- we expect this
-        //         }
-        //     }
-        // }
+        Method (_STA, 0, NotSerialized)  // _STA: Status
+        {
+            Return (Zero)
+        }
     }
     
     Scope (_SB.PCI0.LPCB)
-    {
+    {        
         // Fake RTC0
         Device (RTC0)
         {
