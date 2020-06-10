@@ -1,0 +1,2 @@
+Get the file from official OpenCore release, don't use mine, use the latest version
+If you use my config.plist, you should generate your SMBIOS data
