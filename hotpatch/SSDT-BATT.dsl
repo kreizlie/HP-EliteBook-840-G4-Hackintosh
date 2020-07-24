@@ -1,5 +1,5 @@
 // SSDT Battery
-DefinitionBlock ("", "SSDT", 2, "ACDT", "_BAT0", 0)
+DefinitionBlock ("", "SSDT", 2, "ACDT", "BATT", 0)
 {
     External (_SB.PCI0.LPCB.EC, DeviceObj)
     External (_SB.PCI0.LPCB.EC.BTDR, MethodObj)

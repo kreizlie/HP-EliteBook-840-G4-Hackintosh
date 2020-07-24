@@ -1,7 +1,7 @@
 // SSDT DMAC
 DefinitionBlock ("", "SSDT", 2, "ACDT", "DMAC", 0)
 {
-    External(_SB.PCI0.LPCB, DeviceObj)
+    External (_SB.PCI0.LPCB, DeviceObj)
     
     Scope (_SB.PCI0.LPCB)
     {
@@ -38,9 +38,16 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "DMAC", 0)
                     {4}
             })
 
-            Method (_STA, 0, NotSerialized)
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (0x0F)
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
     }

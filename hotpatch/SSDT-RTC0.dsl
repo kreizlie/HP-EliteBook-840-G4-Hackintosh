@@ -9,7 +9,14 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "_RTC0", 0)
     {
         Method (_STA, 0, NotSerialized)  // _STA: Status
         {
-            Return (Zero)
+            If (_OSI ("Darwin"))
+            {
+                Return (Zero)
+            }
+            Else
+            {
+                Return (0x0F)
+            }
         }
     }
     
@@ -29,9 +36,16 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "_RTC0", 0)
                     )
             })
             
-            Method (_STA, 0, NotSerialized)
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (0x0F)
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
     }

@@ -10,17 +10,11 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "_HPE0", 0)
     {
         Method (_INI, 0, Serialized)  // _INI: Initialize
         {
-            HPTE = Zero
+            If (_OSI ("Darwin"))
+            {
+                HPTE = Zero
+            }
         }
-        
-        // Method (_STA, 0, NotSerialized)  // _STA: Status
-        // {
-        //     If (HPTE)
-        //     {
-        //         Return (0x0F)
-        //     }
-        //     Return (Zero) -- we expect this
-        // }
     }
 
     Scope (_SB.PCI0.LPCB)
@@ -40,14 +34,21 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "_HPE0", 0)
                     )
             })
             
-            Method (_STA, 0, NotSerialized)
-            {
-                Return (0x0F)
-            }
-            
             Method (_CRS, 0, Serialized)
             {
                 Return (BUF0)
+            }
+            
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
     }

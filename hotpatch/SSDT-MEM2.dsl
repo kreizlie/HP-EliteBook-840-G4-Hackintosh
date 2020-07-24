@@ -25,9 +25,16 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "MEM2", 0)
                 Return (CRS)
             }
             
-            Method (_STA, 0, NotSerialized)
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (0x0F)
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
     }

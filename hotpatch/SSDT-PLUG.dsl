@@ -1,5 +1,5 @@
 // SSDT PLUG
-DefinitionBlock ("", "SSDT", 2, "ACDT", "CpuPlug", 0x00003000)
+DefinitionBlock ("", "SSDT", 2, "ACDT", "CPUPM", 0x00003000)
 {
     External (_PR.PR00, ProcessorObj)
     

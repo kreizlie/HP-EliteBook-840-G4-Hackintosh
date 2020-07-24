@@ -1,5 +1,5 @@
 // SSDT PWRB
-DefinitionBlock("", "SSDT", 2, "ACDT", "PWRB", 0)
+DefinitionBlock ("", "SSDT", 2, "ACDT", "PWRB", 0)
 {
     External (_SB.PWRB, DeviceObj)
     
@@ -7,7 +7,14 @@ DefinitionBlock("", "SSDT", 2, "ACDT", "PWRB", 0)
     {
         Method (_STA, 0, NotSerialized)  // _STA: Status
         {
-            Return (0x0F)
+            If (_OSI ("Darwin"))
+            {
+                Return (0x0F)
+            }
+            Else
+            {
+                Return (0x0B)
+            }
         }
     }
 }

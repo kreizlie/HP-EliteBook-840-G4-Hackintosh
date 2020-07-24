@@ -9,21 +9,11 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "_GPIO", 0)
     {
         Method (_INI, 0, NotSerialized)  // _INI: Initialize
         {
-            GPEN = One
-            SBRG = One
+            If (_OSI ("Darwin"))
+            {
+                GPEN = One
+                SBRG = One
+            }
         }
-        
-        // Method (_STA, 0, NotSerialized)  // _STA: Status
-        // {
-        //     If (LEqual (SBRG, Zero))
-        //     {
-        //         Return (Zero)
-        //     }
-        //     If (LEqual (GPEN, Zero))
-        //     {
-        //         Return (Zero)
-        //     }
-        //     Return (0x0F) -- we expect this
-        // }
     }
 }
